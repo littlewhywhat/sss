@@ -7,9 +7,6 @@ public class QuestionBO {
 	public QuestionBO(Question question) {
 		m_Question = question;
 	}
-	public Question getQuestion() {
-		return m_Question;
-	}
 	
 	public String getTitle() {
 		return m_Question.getTitle();
