@@ -9,26 +9,27 @@ public class Question {
 	@Id
 	@GeneratedValue
 	private Long id;
-    private String m_Title;
-    private String m_Content;
-    public Question() {}
-    public Question(String title, String content) {
-    	m_Title = title;
-    	m_Content = content;
-    }
+    private String title;
+    private String content;
 	public String getTitle() {
-		return m_Title;
+		return title;
 	}
-	public void setTitle(String title) {
-		this.m_Title = title;
+	public Question setTitle(String title) {
+		this.title = title;
+		return this;
 	}
 	public String getContent() {
-		return m_Content;
+		return content;
 	}
-	public void setContent(String content) {
-		this.m_Content = content;
+	public Question setContent(String content) {
+		this.content = content;
+		return this;
 	}
-	public void setId(Long id) {
+	public Question setId(Long id) {
 		this.id = id;
+		return this;
+	}
+	public Long getId() {
+		return id;
 	}
 }

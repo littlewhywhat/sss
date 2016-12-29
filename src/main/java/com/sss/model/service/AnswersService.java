@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sss.data.IAnswersRepository;
 import com.sss.data.entity.Answer;
+import com.sss.data.entity.Question;
 import com.sss.model.IAnswersService;
 import com.sss.model.bo.AnswerBO;
 import com.sss.model.vo.AnswerVO;
@@ -28,7 +29,9 @@ public class AnswersService implements IAnswersService {
 
 	@Override
 	public void add(AnswerVO answerVO, Long questionId) {
-		repository.save(new Answer(answerVO.getContent(), questionId));
+		repository.save(new Answer()
+								.setContent(answerVO.getContent())
+								.setQuestion(new Question().setId(questionId)));
 	}
 
 }

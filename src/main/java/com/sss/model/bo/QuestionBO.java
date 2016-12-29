@@ -8,6 +8,10 @@ public class QuestionBO {
 		m_Question = question;
 	}
 	
+	public Long getId() {
+		return m_Question.getId();
+	}
+	
 	public String getTitle() {
 		return m_Question.getTitle();
 	}

@@ -33,6 +33,8 @@ class QuestionsService implements IQuestionsService  {
 
 	@Override
 	public void create(QuestionVO questionVO) {
-		m_Repository.save(new Question(questionVO.getTitle(), questionVO.getContent()));		
+		m_Repository.save(new Question()
+								.setTitle(questionVO.getTitle())
+								.setContent(questionVO.getContent()));		
 	}
 }
