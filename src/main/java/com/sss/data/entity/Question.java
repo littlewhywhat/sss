@@ -1,8 +1,17 @@
-package com.sss.model.data;
+package com.sss.data.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Question {
+	@Id
+	@GeneratedValue
+	private Long m_Id;
     private String m_Title;
     private String m_Content;
+    public Question() {}
     public Question(String title, String content) {
     	m_Title = title;
     	m_Content = content;

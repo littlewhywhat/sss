@@ -21,9 +21,9 @@ repositories {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-jpa")
-    compile("mysql:mysql-connector-java")
+    runtime("org.apache.derby:derby")
 }
 
 sourceCompatibility = 1.8
