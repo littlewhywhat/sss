@@ -27,4 +27,5 @@ class QuestionsController {
     public void add(@RequestBody QuestionVO questionVO) {    	
     	questions.create(questionVO);
     }
+
 }

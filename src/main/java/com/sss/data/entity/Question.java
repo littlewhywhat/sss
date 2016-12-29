@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Question {
 	@Id
 	@GeneratedValue
-	private Long m_Id;
+	private Long id;
     private String m_Title;
     private String m_Content;
     public Question() {}
@@ -27,5 +27,8 @@ public class Question {
 	}
 	public void setContent(String content) {
 		this.m_Content = content;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
