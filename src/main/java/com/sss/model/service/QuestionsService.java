@@ -1,6 +1,7 @@
 package com.sss.model.service;
 
 import com.sss.data.IQuestionsRepository;
+import com.sss.data.entity.Commentable;
 import com.sss.data.entity.Question;
 import com.sss.model.IQuestionsService;
 import com.sss.model.bo.QuestionBO;
@@ -35,6 +36,7 @@ class QuestionsService implements IQuestionsService  {
 	public void create(QuestionVO questionVO) {
 		m_Repository.save(new Question()
 								.setTitle(questionVO.getTitle())
-								.setContent(questionVO.getContent()));		
+								.setContent(questionVO.getContent())
+								.setCommentable(new Commentable()));		
 	}
 }

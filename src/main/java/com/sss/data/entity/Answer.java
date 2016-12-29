@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Answer {
+	
 	@Id
 	@GeneratedValue
 	private Long id;

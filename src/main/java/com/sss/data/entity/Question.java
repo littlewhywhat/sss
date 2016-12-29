@@ -1,17 +1,29 @@
 package com.sss.data.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Question {
+
 	@Id
-	@GeneratedValue
 	private Long id;
     private String title;
     private String content;
-	public String getTitle() {
+    
+    @OneToOne @MapsId
+    private Commentable commentable;
+    
+    public Long getId() {
+    	return id;
+    }
+    public Question setId(Long id) {
+    	this.id = id;
+    	return this;
+    }
+    public String getTitle() {
 		return title;
 	}
 	public Question setTitle(String title) {
@@ -25,11 +37,8 @@ public class Question {
 		this.content = content;
 		return this;
 	}
-	public Question setId(Long id) {
-		this.id = id;
+	public Question setCommentable(Commentable commentable) {
+		this.commentable = commentable;
 		return this;
-	}
-	public Long getId() {
-		return id;
 	}
 }
