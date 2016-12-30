@@ -6,4 +6,7 @@ public interface IAnswersRepository {
 	Iterable<Answer> findByQuestionId(Long id);
 
 	Answer save(Answer answer);
+
+	void delete(Long answerId);
+
 }

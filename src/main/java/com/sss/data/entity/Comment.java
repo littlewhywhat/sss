@@ -14,6 +14,11 @@ public class Comment {
 	
 	@ManyToOne
 	private Commentable commentable;
+
+	public Comment setId(Long id) {
+		this.id = id;
+		return this;
+	}
 	
 	public String getContent() {
 		return content;

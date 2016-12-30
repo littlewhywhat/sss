@@ -17,21 +17,36 @@ import com.sss.model.vo.CommentVO;
 public class CommentsService implements ICommentsService {
 
 	@Autowired
-	private ICommentsRepository repository;
+	private ICommentsRepository m_Repository;
+
+	private Comment vo2entity(CommentVO commentVO, Long commentableId) {
+		return new Comment()
+				.setContent(commentVO.getContent())
+				.setCommentable(new Commentable().setId(commentableId));
+	}
 	
 	@Override
 	public void add(CommentVO commentVO, Long commentableId) {
-		repository.save(new Comment()
-							.setContent(commentVO.getContent())
-							.setCommentable(new Commentable().setId(commentableId)));
+		m_Repository.save(vo2entity(commentVO, commentableId));
 	}
 
 	@Override
 	public List<CommentBO> findByCommentableId(Long commentableId) {
 		List<CommentBO> comments = new ArrayList<>();
-		for (Comment comment : repository.findByCommentableId(commentableId)) 
+		for (Comment comment : m_Repository.findByCommentableId(commentableId)) 
 			comments.add(new CommentBO(comment));
 		return comments;
 	}
+
+	@Override
+	public void delete(Long commentableId, Long commentId) {
+		m_Repository.delete(commentId);
+	}
+
+	@Override
+	public void update(CommentVO commentVO, Long commentableId, Long commentId) {
+		m_Repository.save(vo2entity(commentVO, commentableId).setId(commentId));
+	}
+
 
 }

@@ -6,6 +6,8 @@ import com.sss.model.bo.AnswerBO;
 import com.sss.model.vo.AnswerVO;
 
 public interface IAnswersService {
-	public List<AnswerBO> findByQuestionId(Long questionId);
-	public void add(AnswerVO answerVO, Long questionId); 
+	List<AnswerBO> findByQuestionId(Long questionId);
+	void add(AnswerVO answerVO, Long questionId);
+	void update(AnswerVO answerVO, Long questionId, Long answerId);
+	void delete(Long questionId, Long answerId); 
 }

@@ -19,6 +19,12 @@ class QuestionsService implements IQuestionsService  {
 	@Autowired
 	private IQuestionsRepository m_Repository;
 	
+	private Question vo2entity(QuestionVO questionVO) {
+		return new Question()
+				.setTitle(questionVO.getTitle())
+				.setContent(questionVO.getContent());
+	}
+	
     @Override
     public List<QuestionBO> all() {
     	List<QuestionBO> questions = new ArrayList<>();
@@ -33,10 +39,17 @@ class QuestionsService implements IQuestionsService  {
     }
 
 	@Override
-	public void create(QuestionVO questionVO) {
-		m_Repository.save(new Question()
-								.setTitle(questionVO.getTitle())
-								.setContent(questionVO.getContent())
-								.setCommentable(new Commentable()));		
+	public void add(QuestionVO questionVO) {
+		m_Repository.save(vo2entity(questionVO).setCommentable(new Commentable()));		
+	}
+
+	@Override
+	public void update(QuestionVO questionVO, Long questionId) {
+		m_Repository.save(vo2entity(questionVO).setId(questionId));
+	}
+
+	@Override
+	public void delete(Long questionId) {
+		m_Repository.delete(questionId);
 	}
 }

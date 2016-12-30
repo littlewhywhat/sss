@@ -8,4 +8,6 @@ public interface ICommentsRepository {
 
 	Comment save(Comment setCommentable);
 
+	void delete(Long commentId);
+
 }

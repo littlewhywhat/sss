@@ -28,4 +28,14 @@ public class AnswersController {
     public void add(@RequestBody AnswerVO answerVO, @PathVariable Long questionId) {
     	answers.add(answerVO, questionId);
     }
+    
+    @RequestMapping(method=RequestMethod.PUT, value="questions/{questionId}/answers/{answerId}")
+    public void update(@RequestBody AnswerVO answerVO, @PathVariable Long questionId, @PathVariable Long answerId) {
+    	answers.update(answerVO, questionId, answerId);
+    }
+    
+    @RequestMapping(method=RequestMethod.DELETE, value="questions/{questionId}/answers/{answerId}")
+    public void delete(@PathVariable Long questionId, @PathVariable Long answerId) {
+    	answers.delete(questionId, answerId);
+    }
 }
