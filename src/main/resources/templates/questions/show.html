@@ -7,5 +7,7 @@
 	<h1>Question</h1>
 	<p th:text="${question.title}">here should be question title</p>
 	<p th:text="${question.content}">here should be question's content</p>
+	<a th:text="edit" href="edit.html" th:href="@{/questions/{questionId}/edit(questionId=${question.id})}">edit</a>
+	
 </body>
 </html>

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
@@ -20,9 +19,14 @@ class QuestionsController {
 	private static final String QUESTION = "question"; 
 	private static final String QUESTIONS = QUESTION + "s";
 	private static final String INDEX = QUESTIONS + "/index";
-	private static final String QUESTION_ID = QUESTIONS + "/{" + QUESTION + "Id}";
+
+	private static final String QUESTION_ID = QUESTION + "Id"; 
+	private static final String QUESTION_ID_PATH = QUESTIONS + "/{" + QUESTION_ID +"}";
 	private static final String SHOW = QUESTIONS + "/show";
-	private static final String NEW = QUESTIONS + "/new"; 
+	private static final String NEW = QUESTIONS + "/new";
+	private static final String EDIT = "/edit";
+	private static final String EDIT_VIEW = QUESTIONS + EDIT;
+	private static final String EDIT_PATH = QUESTION_ID_PATH + EDIT;
 	
     @Autowired
     private IQuestionsService questions;
@@ -49,19 +53,29 @@ class QuestionsController {
     	return INDEX;
     }
 
-    @RequestMapping(QUESTION_ID)
+    @RequestMapping(EDIT_PATH)
+    public String edit(@PathVariable Long questionId, Model model) {
+    	model.addAttribute(QUESTION_ID, questionId);
+    	model.addAttribute(QUESTION, new QuestionVO());
+    	return EDIT_VIEW;
+    }
+    
+    @RequestMapping(QUESTION_ID_PATH)
     public String show(@PathVariable Long questionId, Model model) {
     	model.addAttribute(QUESTION, questions.find(questionId));
     	return SHOW;
     }
     
-    @RequestMapping(method=RequestMethod.PUT, value=QUESTION_ID)
-    public void update(@RequestBody QuestionVO questionVO, @PathVariable Long questionId) {
+    @RequestMapping(method=RequestMethod.PUT, value=QUESTION_ID_PATH)
+    public String update(@ModelAttribute QuestionVO questionVO, @PathVariable Long questionId, Model model) {
     	questions.update(questionVO, questionId);
+    	model.addAttribute(QUESTION, questions.find(questionId));
+    	return SHOW;
     }
     
-    @RequestMapping(method=RequestMethod.DELETE, value=QUESTION_ID)
-    public void delete(@PathVariable Long questionId) {
+    @RequestMapping(method=RequestMethod.DELETE, value=QUESTION_ID_PATH)
+    public String delete(@PathVariable Long questionId) {
     	questions.delete(questionId);
+    	return INDEX;
     }
 }

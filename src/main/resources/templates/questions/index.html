@@ -11,14 +11,22 @@
 				<tr>
 					<th th:text="title">title</th>
 					<th th:text="content">content</th>
-					<th th:text="more">more</th>
+					<th th:text="edit">edit</th>
+					<th th:text="delete">edit</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="q : ${questions}">
 					<td th:text="${q.title}">title</td>
 					<td th:text="${q.content}">content</td>
-					<td ><a th:text="show" href="show.html" th:href="@{/questions/{questionId}(questionId=${q.id})}">show</a></td>
+					<td><a th:text="show" href="show.html"
+						th:href="@{/questions/{questionId}(questionId=${q.id})}">show</a></td>
+					<td><form action="#"
+							th:action="@{/questions/{questionId}(questionId=${q.id})}"
+							th:method="delete">
+							<input type="submit" value="delete" />
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
