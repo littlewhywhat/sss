@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>SSS</title>
+</head>
+<body>
+	<h1>Create question</h1>
+	<form action="#" th:object="${question}" method="post" th:action="@{/questions}">
+		<fieldset>
+			<input type="text" name="title"/>
+			<input type="text" name="content"/> 
+			<input type="submit" value="Create!" />
+		</fieldset>
+	</form>
+</body>
+</html>

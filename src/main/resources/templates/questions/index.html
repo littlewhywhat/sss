@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>SSS</title>
+</head>
+<body>
+	<a th:text="add" href="new.html" th:href="@{/questions/new}"></a>
+	<div class="questions-list" th:unless="${#lists.isEmpty(questions)}">
+		<table>
+			<thead>
+				<tr>
+					<th th:text="title">title</th>
+					<th th:text="content">content</th>
+					<th th:text="more">more</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="q : ${questions}">
+					<td th:text="${q.title}">title</td>
+					<td th:text="${q.content}">content</td>
+					<td ><a th:text="show" href="show.html" th:href="@{/questions/{questionId}(questionId=${q.id})}">show</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
