@@ -25,8 +25,8 @@ class QuestionsController {
     }
     
     @RequestMapping(method=RequestMethod.POST, value="/questions")
-    public void add(@RequestBody QuestionVO questionVO) {    	
-    	questions.add(questionVO);
+    public QuestionBO add(@RequestBody QuestionVO questionVO) {    	
+    	return questions.add(questionVO);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="questions/{questionId}")

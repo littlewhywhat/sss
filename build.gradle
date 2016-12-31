@@ -28,3 +28,7 @@ dependencies {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+bootRun {
+	addResources = true
+}

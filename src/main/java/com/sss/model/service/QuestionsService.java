@@ -39,8 +39,8 @@ class QuestionsService implements IQuestionsService  {
     }
 
 	@Override
-	public void add(QuestionVO questionVO) {
-		m_Repository.save(vo2entity(questionVO).setCommentable(new Commentable()));		
+	public QuestionBO add(QuestionVO questionVO) {
+		return new QuestionBO(m_Repository.save(vo2entity(questionVO).setCommentable(new Commentable())));		
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import com.sss.model.vo.QuestionVO;
 public interface IQuestionsService {
     List<QuestionBO> all();
     QuestionBO find(Long id);
-    void add(QuestionVO questionVO);
+    QuestionBO add(QuestionVO questionVO);
 	void update(QuestionVO questionVO, Long questionId);
     void delete(Long questionId);
 }
