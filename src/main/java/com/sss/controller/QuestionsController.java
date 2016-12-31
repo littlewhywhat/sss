@@ -16,66 +16,54 @@ import java.util.List;
 @Controller
 class QuestionsController {
 
-	private static final String QUESTION = "question"; 
-	private static final String QUESTIONS = QUESTION + "s";
-	private static final String INDEX = QUESTIONS + "/index";
-
-	private static final String QUESTION_ID = QUESTION + "Id"; 
-	private static final String QUESTION_ID_PATH = QUESTIONS + "/{" + QUESTION_ID +"}";
-	private static final String SHOW = QUESTIONS + "/show";
-	private static final String NEW = QUESTIONS + "/new";
-	private static final String EDIT = "/edit";
-	private static final String EDIT_VIEW = QUESTIONS + EDIT;
-	private static final String EDIT_PATH = QUESTION_ID_PATH + EDIT;
-	
-    @Autowired
+	@Autowired
     private IQuestionsService questions;
 
-    @ModelAttribute(QUESTIONS)
+    @ModelAttribute(Questions.QUESTIONS)
     public List<QuestionBO> all() {
     	return questions.all();
     }
     
-    @RequestMapping(QUESTIONS)
+    @RequestMapping(Questions.QUESTIONS)
     public String index() {
-        return INDEX;
+        return Questions.INDEX;
     }
 
-    @RequestMapping(NEW)
+    @RequestMapping(Questions.NEW)
     public String create(Model model) {
-    	model.addAttribute(QUESTION, new QuestionVO());
-    	return NEW;
+    	model.addAttribute(Questions.QUESTION, new QuestionVO());
+    	return Questions.NEW;
     }
     
-    @RequestMapping(method=RequestMethod.POST, value=QUESTIONS)
+    @RequestMapping(method=RequestMethod.POST, value=Questions.QUESTIONS)
     public String add(@ModelAttribute QuestionVO questionVO) {    	
     	questions.add(questionVO);
-    	return INDEX;
+    	return Questions.INDEX;
     }
 
-    @RequestMapping(EDIT_PATH)
+    @RequestMapping(Questions.EDIT_PATH)
     public String edit(@PathVariable Long questionId, Model model) {
-    	model.addAttribute(QUESTION_ID, questionId);
-    	model.addAttribute(QUESTION, new QuestionVO());
-    	return EDIT_VIEW;
+    	model.addAttribute(Questions.ID, questionId);
+    	model.addAttribute(Questions.QUESTION, new QuestionVO());
+    	return Questions.EDIT_VIEW;
     }
     
-    @RequestMapping(QUESTION_ID_PATH)
+    @RequestMapping(Questions.ID_PATH)
     public String show(@PathVariable Long questionId, Model model) {
-    	model.addAttribute(QUESTION, questions.find(questionId));
-    	return SHOW;
+    	model.addAttribute(Questions.QUESTION, questions.find(questionId));
+    	return Questions.SHOW;
     }
     
-    @RequestMapping(method=RequestMethod.PUT, value=QUESTION_ID_PATH)
+    @RequestMapping(method=RequestMethod.PUT, value=Questions.ID_PATH)
     public String update(@ModelAttribute QuestionVO questionVO, @PathVariable Long questionId, Model model) {
     	questions.update(questionVO, questionId);
-    	model.addAttribute(QUESTION, questions.find(questionId));
-    	return SHOW;
+    	model.addAttribute(Questions.QUESTION, questions.find(questionId));
+    	return Questions.SHOW;
     }
     
-    @RequestMapping(method=RequestMethod.DELETE, value=QUESTION_ID_PATH)
+    @RequestMapping(method=RequestMethod.DELETE, value=Questions.ID_PATH)
     public String delete(@PathVariable Long questionId) {
     	questions.delete(questionId);
-    	return INDEX;
+    	return Questions.INDEX;
     }
 }
