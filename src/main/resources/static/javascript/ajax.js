@@ -11,14 +11,12 @@ function ajaxDelete(url, success) {
 		});
 }
 
-function ajaxGet(url, container) {
+function ajaxGet(url, success) {
 	$.ajax({
 			type: 'GET',
 			url: url,
 			success: function(data) {
-					$.each(data, function(i, object){
-						container.add(object);
-					});
+					success(data);
 				},
 			error: function(status) {
 				console.log(status);

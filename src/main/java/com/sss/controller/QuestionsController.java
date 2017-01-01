@@ -19,22 +19,27 @@ class QuestionsController {
     @Autowired
     IQuestionsService questions;
 
-    @RequestMapping("/questions")
+    @RequestMapping("api/questions")
     public List<QuestionBO> index() {
         return questions.all();
     }
     
-    @RequestMapping(method=RequestMethod.POST, value="/questions")
+    @RequestMapping(method=RequestMethod.POST, value="api/questions")
     public QuestionBO add(@RequestBody QuestionVO questionVO) {    	
     	return questions.add(questionVO);
     }
 
-    @RequestMapping(method=RequestMethod.PUT, value="questions/{questionId}")
+    @RequestMapping("api/questions/{questionId}")
+    public QuestionBO find(@PathVariable Long questionId) {
+    	return questions.find(questionId);
+    }
+    
+    @RequestMapping(method=RequestMethod.PUT, value="api/questions/{questionId}")
     public QuestionBO update(@RequestBody QuestionVO questionVO, @PathVariable Long questionId) {
     	return questions.update(questionVO, questionId);
     }
     
-    @RequestMapping(method=RequestMethod.DELETE, value="questions/{questionId}")
+    @RequestMapping(method=RequestMethod.DELETE, value="api/questions/{questionId}")
     public void delete(@PathVariable Long questionId) {
     	questions.delete(questionId);
     }

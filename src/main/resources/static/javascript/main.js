@@ -1,6 +1,6 @@
 $(function() {
 	var name = "questions";
-	var mainUrl = '/' + name + '/';
+	var mainUrl = 'api/' + name + '/';
 	var fields = ['title','content'];
 	var template = $('#' + name + '-template').html();
 	var $list = $('#' + name);
@@ -81,7 +81,11 @@ function List(mainUrl, $list, fields, template, wrapperTag) {
 			});
 		mapping.noeditMode();
 	}
-	ajaxGet(mainUrl, this);
+	ajaxGet(mainUrl, function(data) {
+		$.each(data, function(i, object){
+			this.add(object);
+		});
+	});
 	this.$list.delegate('.remove', 'click', deleteHandler);
 	this.$list.delegate('.editButton', 'click', goToEditMode);
 	this.$list.delegate('.cancelEdit', 'click', cancelEditMode);

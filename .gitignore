@@ -6,4 +6,4 @@ gradle
 .project
 derby.log
 *mustache.js
-*wurl.js
+*url.min.js

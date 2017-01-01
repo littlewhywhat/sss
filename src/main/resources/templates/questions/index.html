@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>SSS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel='stylesheet' href='/css/style.css'
+<link rel='stylesheet' href='/css/style.css'/>
 </head>
 <body>
-	<template id="questions-template">
+	<script type="x-tmpl-mustache" id="questions-template">
 		<li data-id='{{id}}'>
 			<p>
 				<strong>Title: </strong> 
@@ -22,18 +22,19 @@
 			<button class='editButton noedit'>Edit</button>
 			<button class='saveEdit edit'>Save</button>
 			<button class='cancelEdit edit'>Cancel</button>
+			<a class='show noedit' href='questions/{{id}}'>Show</a>
 		</li>
-	</template>
+	</script>
 	<p>Welcome to Student Study Space!</p>
 	<ul id="questions">
 	</ul>
 	<div id="questions-form">
 		<h4>Add question</h4>
 		<p>
-			title: <input type="text" class="title">
+			title: <input type="text" class="title"></input>
 		</p>
 		<p>
-			content: <input type="text" class="content">
+			content: <input type="text" class="content"></input>
 		</p>
 		<button id="add">Add!</button>
 	</div>
