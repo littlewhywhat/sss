@@ -1,9 +1,9 @@
-function ajaxDelete(url, element) {
+function ajaxDelete(url, success) {
 	$.ajax({
 			type: 'DELETE',
 			url: url,
 			success: function() {
-				element.remove();
+				success();
 			},
 			error: function(status) {
 				console.log(status);
@@ -26,7 +26,7 @@ function ajaxGet(url, container) {
 		});
 }
 
-function ajaxPost(url, tosend, container) {
+function ajaxPost(url, tosend, success) {
 	$.ajax({
 			type: 'POST',
 			url: url,
@@ -34,7 +34,7 @@ function ajaxPost(url, tosend, container) {
 			contentType: 'application/json',
 			dataType: 'json',
 			success: function(received) {
-				container.add(received);
+				success(received)
 			},
 			error: function(status) {
 				console.log(status);
