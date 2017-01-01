@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<template id="question-template">
+	<template id="questions-template">
 		<li>
 			<p>
 				<strong>Title: </strong> {{title}}
@@ -19,18 +19,21 @@
 	<p>Welcome to Student Study Space!</p>
 	<ul id="questions">
 	</ul>
-	<h4>Add question</h4>
-	<p>
-		title: <input type="text" id="title">
-	</p>
-	<p>
-		content: <input type="text" id="content">
-	</p>
-	<button id="add-question">Add!</button>
+	<div id="question-form">
+		<h4>Add question</h4>
+		<p>
+			title: <input type="text" id="title">
+		</p>
+		<p>
+			content: <input type="text" id="content">
+		</p>
+	</div>
+	<button id="add-questions">Add!</button>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/javascript/mustache.js"></script>
+<script type="text/javascript" src="/javascript/ajax.js"></script>
 <script src="/javascript/main.js"></script>
 </html>
 

@@ -1,58 +1,40 @@
-$(function(){
-	
-	var $questions = $('#questions');
-	var $addquestion = $('#add-question');
-	var $title = $('#title');
-	var $content = $('#content');
-	
-	var questionTemplate = $('#question-template').html();
-	
-	function addQuestion(question) {
-		$questions.append(Mustache.render(questionTemplate, question));
-	};
-	
-	$.ajax({
-		type: 'GET',
-		url: '/questions',
-		success: function(questions) {
-			$.each(questions, function(i, question){
-				addQuestion(question);
-			});
-		}
-	});
-	
-	$addquestion.on('click', function() {
-		var questionVO = {
-			title: $title.val(),
-			content: $content.val(),
-		};
-		
-		$.ajax({
-			type: 'POST',
-			url: '/questions',
-			data: JSON.stringify(questionVO),
-			contentType: 'application/json',
-			dataType: 'json',
-			success: function(questionBO) {
-				addQuestion(questionBO);
-			},
-			error: function(status) {
-				console.log(status);
-			}
-		});
-	});
-	$questions.delegate('.remove', 'click', function(){
-		var $li = $(this).closest('li');
-		
-		$.ajax({
-			type: 'DELETE',
-			url: '/questions/' + $(this).attr('data-id'),
-			success: function(questionBO) {
-				$li.remove();
-			},
-			error: function(status) {
-				console.log(status);
-			}
-		});
-	});
+$(function() {
+	var name = "questions";
+	var questions = new List(name);
+	new Form(questions, name, new Mapping(['title','content']));
 });
+
+function Mapping(fields) {
+	this.fields = fields;
+}
+
+Mapping.prototype.data = function() {
+	var data = {};
+	$.each(this.fields, function(i, field) {
+		data[field] = $('#' + field).val();
+	});
+	return data;
+};
+
+function List(name) {
+	var deleteHandler = function() {
+		var $li = $(this).closest('li');
+		ajaxDelete('/' + name + '/' + $(this).attr('data-id'), $li)		
+	}
+	this.template = $('#' + name + '-template').html();
+	this.$list = $('#' + name);
+	ajaxGet('/' + name, this);
+	this.$list.delegate('.remove', 'click', deleteHandler);
+}
+
+List.prototype.add = function(object) {
+	this.$list.append(Mustache.render(this.template, object));
+};
+
+function Form(list, name, questionForm) {	
+	var $addquestion = $('#add-' + name);
+	$addquestion.on('click', function() {
+		var url = '/' + name;
+		ajaxPost(url, questionForm.data(), list)	
+	});
+}
