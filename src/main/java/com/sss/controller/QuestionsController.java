@@ -30,8 +30,8 @@ class QuestionsController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="questions/{questionId}")
-    public void update(@RequestBody QuestionVO questionVO, @PathVariable Long questionId) {
-    	questions.update(questionVO, questionId);
+    public QuestionBO update(@RequestBody QuestionVO questionVO, @PathVariable Long questionId) {
+    	return questions.update(questionVO, questionId);
     }
     
     @RequestMapping(method=RequestMethod.DELETE, value="questions/{questionId}")

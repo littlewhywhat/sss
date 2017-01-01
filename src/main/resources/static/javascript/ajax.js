@@ -41,3 +41,19 @@ function ajaxPost(url, tosend, container) {
 			}
 	});
 }
+
+function ajaxPut(url, tosend, success) {
+	$.ajax({
+			type: 'PUT',
+			url: url,
+			data: JSON.stringify(tosend),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function(received) {
+				success(received);
+			},
+			error: function(status) {
+				console.log(status);
+			}
+	});
+}

@@ -3,32 +3,40 @@
 <head>
 <title>SSS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel='stylesheet' href='/css/style.css'
 </head>
 <body>
 	<template id="questions-template">
-		<li>
+		<li data-id='{{id}}'>
 			<p>
-				<strong>Title: </strong> {{title}}
+				<strong>Title: </strong> 
+				<span class='noedit title'>{{title}}</span>
+				<input class='edit title'></input>
 			</p>
 			<p>
-				<strong>Content: </strong> {{content}}
+				<strong>Content: </strong> 
+				<span class='noedit content'>{{content}}</span>
+				<input class='edit content'></input>
 			</p>
-			<button data-id='{{id}}' class='remove'>Remove</button>
+			<button class='remove'>Remove</button>
+			<button class='editButton noedit'>Edit</button>
+			<button class='saveEdit edit'>Save</button>
+			<button class='cancelEdit edit'>Cancel</button>
 		</li>
 	</template>
 	<p>Welcome to Student Study Space!</p>
 	<ul id="questions">
 	</ul>
-	<div id="question-form">
+	<div id="questions-form">
 		<h4>Add question</h4>
 		<p>
-			title: <input type="text" id="title">
+			title: <input type="text" class="title">
 		</p>
 		<p>
-			content: <input type="text" id="content">
+			content: <input type="text" class="content">
 		</p>
+		<button id="add-questions">Add!</button>
 	</div>
-	<button id="add-questions">Add!</button>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

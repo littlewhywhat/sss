@@ -44,8 +44,8 @@ class QuestionsService implements IQuestionsService  {
 	}
 
 	@Override
-	public void update(QuestionVO questionVO, Long questionId) {
-		m_Repository.save(vo2entity(questionVO).setId(questionId));
+	public QuestionBO update(QuestionVO questionVO, Long questionId) {
+		return new QuestionBO(m_Repository.save(vo2entity(questionVO).setId(questionId)));
 	}
 
 	@Override
