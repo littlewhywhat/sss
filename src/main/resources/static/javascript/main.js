@@ -1,7 +1,8 @@
 $(function() {
 	var name = "questions";
-	var questions = new List(name);
-	new Form(questions, name, new Mapping(['title','content']));
+	var mainUrl = '/' + name + '/';
+	var questions = new List(mainUrl, name);
+	new Form(mainUrl, questions, name, new Mapping(['title','content']));
 });
 
 function Mapping(fields) {
@@ -16,14 +17,14 @@ Mapping.prototype.data = function() {
 	return data;
 };
 
-function List(name) {
+function List(mainUrl, name) {
 	var deleteHandler = function() {
 		var $li = $(this).closest('li');
-		ajaxDelete('/' + name + '/' + $(this).attr('data-id'), $li)		
+		ajaxDelete(mainUrl + $(this).attr('data-id'), $li)		
 	}
 	this.template = $('#' + name + '-template').html();
 	this.$list = $('#' + name);
-	ajaxGet('/' + name, this);
+	ajaxGet(mainUrl, this);
 	this.$list.delegate('.remove', 'click', deleteHandler);
 }
 
@@ -31,10 +32,9 @@ List.prototype.add = function(object) {
 	this.$list.append(Mustache.render(this.template, object));
 };
 
-function Form(list, name, questionForm) {	
+function Form(mainUrl, list, name, questionForm) {	
 	var $addquestion = $('#add-' + name);
 	$addquestion.on('click', function() {
-		var url = '/' + name;
-		ajaxPost(url, questionForm.data(), list)	
+		ajaxPost(mainUrl, questionForm.data(), list)	
 	});
 }
