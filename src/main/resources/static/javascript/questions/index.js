@@ -1,8 +1,15 @@
 $(function() {
-	var name = "questions";
-	var mainUrl = 'api/' + name + '/';
-	var fields = ['title','content'];
-	var template = $('#' + name + '-template').html();
+	var qName = "questions";
+	var qUrl = 'api/' + qName + '/';
+	var qFields = ['title','content'];
+	var qTemplate = $('#' + qName + '-template').html();
 
-	new ListAndForm($('#' + name), mainUrl, fields, template, function($element) {});
+	new ListAndForm($('#' + qName), qUrl, qFields, qTemplate, function($element) {});
+
+	var tName = "tasks";
+	var tUrl = 'api/' + tName + '/';
+	var tFields = ['title'];
+	var tTemplate = $('#' + tName + '-template').html();
+
+	new List(tUrl, $('#' + tName).find(".list"), tFields, tTemplate, function($element) {});
 });

@@ -25,6 +25,15 @@
 			<button class='cancel-edit-button edit'>Cancel</button>
 		</li>
 	</script>
+	<script type="x-tmpl-mustache" id="tasks-template">
+		<li class='wrapper' data-id='{{id}}'>
+			<p>
+				<span class='noedit title'>{{title}}</span>
+			</p>
+			<button class='remove-button'>Remove</button>
+			<a class='show-link noedit' href='tasks/{{id}}'>Show</a>
+		</li>
+	</script>	
 	<p>Welcome to Student Study Space!</p>
 	<div id="questions">
 		<ul class="list">
@@ -39,6 +48,11 @@
 			</p>
 			<button class="add-button">Add!</button>
 		</div>
+	</div>
+	<div id="tasks">
+		<ul class="list">
+		</ul>
+		<a class='create-task' href='tasks/create.html'>Create task</a>
 	</div>
 </body>
 <script

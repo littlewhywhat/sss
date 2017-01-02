@@ -59,6 +59,18 @@
 			<button class='save-edit-button edit'>Save</button>
 			<button class='cancel-edit-button edit'>Cancel</button>
 		</li>
+	</script>	
+	<script type="x-tmpl-mustache" id="tasks-template">
+		<li class='wrapper' data-id='{{id}}'>
+			<p>
+				<span class='noedit content'>{{content}}</span>
+				<input class='edit content'></input>
+			</p>
+			<button class='remove-button'>Remove</button>
+			<button class='edit-button noedit'>Edit</button>
+			<button class='save-edit-button edit'>Save</button>
+			<button class='cancel-edit-button edit'>Cancel</button>
+		</li>
 	</script>		
 	<div id='question'>
 	</div>
