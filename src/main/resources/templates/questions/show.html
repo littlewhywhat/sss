@@ -14,6 +14,16 @@
 				<span class='content'>{{content}}</span>
 			</p>
 		</div>
+		<div class='comments'>
+			<ul class='list'>
+			</ul>
+			<div class='form'>
+				<p>
+					<input type="text" class="content"></input>
+				</p>
+				<button class="add-button">Comment!</button>
+			</div>
+		</div>
 	</script>
 	<script type="x-tmpl-mustache" id="answers-template">
 		<li class='wrapper' data-id='{{id}}'>
@@ -26,7 +36,7 @@
 			<button class='edit-button noedit'>Edit</button>
 			<button class='save-edit-button edit'>Save</button>
 			<button class='cancel-edit-button edit'>Cancel</button>
-			<div id='comments'>
+			<div class='comments'>
 				<ul class='list'>
 				</ul>
 				<div class='form'>

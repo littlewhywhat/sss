@@ -1,5 +1,6 @@
 package com.sss.model.service;
 
+import com.sss.data.ICommentableRepository;
 import com.sss.data.IQuestionsRepository;
 import com.sss.data.entity.Commentable;
 import com.sss.data.entity.Question;
@@ -10,6 +11,8 @@ import com.sss.model.vo.QuestionVO;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,9 @@ class QuestionsService implements IQuestionsService  {
 
 	@Autowired
 	private IQuestionsRepository m_Repository;
+
+	@Autowired
+	private ICommentableRepository m_CommentableRepository;
 	
 	private Question vo2entity(QuestionVO questionVO) {
 		return new Question()
@@ -49,7 +55,9 @@ class QuestionsService implements IQuestionsService  {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long questionId) {
 		m_Repository.delete(questionId);
+		m_CommentableRepository.delete(questionId);
 	}
 }
