@@ -5,5 +5,3 @@ gradle
 .classpath
 .project
 derby.log
-*mustache.js
-*url.min.js
