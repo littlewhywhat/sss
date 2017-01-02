@@ -10,6 +10,10 @@ public class CommentBO {
 		this.m_Comment = comment;
 	}
 
+	public Long getId() {
+		return m_Comment.getId();
+	}
+	
 	public String getContent() {
 		return m_Comment.getContent();
 	}

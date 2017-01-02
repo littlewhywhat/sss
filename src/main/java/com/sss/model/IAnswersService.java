@@ -7,7 +7,7 @@ import com.sss.model.vo.AnswerVO;
 
 public interface IAnswersService {
 	List<AnswerBO> findByQuestionId(Long questionId);
-	void add(AnswerVO answerVO, Long questionId);
-	void update(AnswerVO answerVO, Long questionId, Long answerId);
+	AnswerBO add(AnswerVO answerVO, Long questionId);
+	AnswerBO update(AnswerVO answerVO, Long questionId, Long answerId);
 	void delete(Long questionId, Long answerId); 
 }

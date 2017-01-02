@@ -25,13 +25,13 @@ public class AnswersController {
     }
     
     @RequestMapping(method=RequestMethod.POST, value="api/questions/{questionId}/answers")
-    public void add(@RequestBody AnswerVO answerVO, @PathVariable Long questionId) {
-    	answers.add(answerVO, questionId);
+    public AnswerBO add(@RequestBody AnswerVO answerVO, @PathVariable Long questionId) {
+    	return answers.add(answerVO, questionId);
     }
     
     @RequestMapping(method=RequestMethod.PUT, value="api/questions/{questionId}/answers/{answerId}")
-    public void update(@RequestBody AnswerVO answerVO, @PathVariable Long questionId, @PathVariable Long answerId) {
-    	answers.update(answerVO, questionId, answerId);
+    public AnswerBO update(@RequestBody AnswerVO answerVO, @PathVariable Long questionId, @PathVariable Long answerId) {
+    	return answers.update(answerVO, questionId, answerId);
     }
     
     @RequestMapping(method=RequestMethod.DELETE, value="api/questions/{questionId}/answers/{answerId}")

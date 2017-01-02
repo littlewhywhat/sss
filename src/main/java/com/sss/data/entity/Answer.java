@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Answer {
@@ -12,6 +14,9 @@ public class Answer {
 	@GeneratedValue
 	private Long id;
 	private String content;
+	
+	@OneToOne @MapsId
+	private Commentable commentable;
 	
 	@ManyToOne
 	private Question question;
@@ -25,6 +30,17 @@ public class Answer {
 	}
 	public Answer setQuestion(Question question) {
 		this.question = question;
+		return this;
+	}
+	public Long getId() {
+		return this.id;
+	}
+	public Answer setCommentable(Commentable commentable) {
+		this.commentable = commentable;
+		return this;
+	}
+	public Answer setId(Long id) {
+		this.id = id;
 		return this;
 	}
 }

@@ -1,20 +1,66 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<link rel='stylesheet' href='/css/style.css'/>
+
 </head>
 <body>
 	<script type="x-tmpl-mustache" id="questions-template">
 		<div data-id='{{id}}'>
-			<h2>Title: 
+			<h2> 
 				<span class='title'>{{title}}</span>
 			</h2>
 			<p>
-				<strong>Content: </strong> 
 				<span class='content'>{{content}}</span>
 			</p>
 		</div>
 	</script>
-	<div class='question'>
+	<script type="x-tmpl-mustache" id="answers-template">
+		<li class='wrapper' data-id='{{id}}'>
+			<p>
+				<strong>Answer: </strong> 
+				<span class='noedit content'>{{content}}</span>
+				<input class='edit content'></input>
+			</p>
+			<button class='remove-button'>Remove</button>
+			<button class='edit-button noedit'>Edit</button>
+			<button class='save-edit-button edit'>Save</button>
+			<button class='cancel-edit-button edit'>Cancel</button>
+			<div id='comments'>
+				<ul class='list'>
+				</ul>
+				<div class='form'>
+					<p>
+						<input type="text" class="content"></input>
+					</p>
+					<button class="add-button">Comment!</button>
+				</div>
+			</div>
+		</li>
+	</script>
+	<script type="x-tmpl-mustache" id="comments-template">
+		<li class='wrapper' data-id='{{id}}'>
+			<p>
+				<span class='noedit content'>{{content}}</span>
+				<input class='edit content'></input>
+			</p>
+			<button class='remove-button'>Remove</button>
+			<button class='edit-button noedit'>Edit</button>
+			<button class='save-edit-button edit'>Save</button>
+			<button class='cancel-edit-button edit'>Cancel</button>
+		</li>
+	</script>		
+	<div id='question'>
+	</div>
+	<div id="answers">
+		<ul class="list">
+		</ul>
+		<div class="form">
+			<p>
+				Your answer: <input type="text" class="content"></input>
+			</p>
+			<button class="add-button">Add!</button>
+		</div>
 	</div>
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script	src="/javascript/url.min.js"></script>

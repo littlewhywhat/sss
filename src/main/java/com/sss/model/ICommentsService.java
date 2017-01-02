@@ -7,7 +7,7 @@ import com.sss.model.vo.CommentVO;
 
 public interface ICommentsService {
 	List<CommentBO> findByCommentableId(Long commentableId);
-	void add(CommentVO commentVO, Long commentableId);
-	void update(CommentVO commentVO, Long commentableId, Long commentId);
+	CommentBO add(CommentVO commentVO, Long commentableId);
+	CommentBO update(CommentVO commentVO, Long commentableId, Long commentId);
 	void delete(Long commentableId, Long commentId);
 }

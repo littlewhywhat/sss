@@ -20,18 +20,18 @@ public class CommentsController {
 	private ICommentsService comments;
 	
 	@RequestMapping(method=RequestMethod.POST, value="api/commentables/{commentableId}/comments")
-	public void add(@RequestBody CommentVO commentVO, @PathVariable Long commentableId) {
-		comments.add(commentVO, commentableId);
+	public CommentBO add(@RequestBody CommentVO commentVO, @PathVariable Long commentableId) {
+		return comments.add(commentVO, commentableId);
 	}
 	
-	@RequestMapping("api/commentable/{commentableId}/comments")
+	@RequestMapping("api/commentables/{commentableId}/comments")
 	public List<CommentBO> comments(@PathVariable Long commentableId) {
 		return comments.findByCommentableId(commentableId);
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="api/commentables/{commentableId}/comments/{commentId}")
-    public void update(@RequestBody CommentVO commentVO, @PathVariable Long commentableId,@PathVariable Long commentId) {
-    	comments.update(commentVO, commentableId, commentId);
+    public CommentBO update(@RequestBody CommentVO commentVO, @PathVariable Long commentableId,@PathVariable Long commentId) {
+    	return comments.update(commentVO, commentableId, commentId);
     }
 	
     @RequestMapping(method=RequestMethod.DELETE, value="api/commentables/{commentableId}/comments/{commentId}")

@@ -51,24 +51,36 @@ function List(mainUrl, $list, fields, template, onAdd) {
 	this.$list = $list;
 	this.template = template;
 	this.onAdd = onAdd;
-	var getWrapper = function(element, fields) {
+	this.fields = fields;
+	this.mainUrl = mainUrl;
+	ajaxGet(mainUrl, function(data) {
+		$.each(data, function(i, object){
+			self.add(object);
+		});
+	});
+}
+
+List.prototype.add = function(object) {
+	var fields = this.fields;
+	var mainUrl = this.mainUrl;
+	var getWrapper = function(element) {
 		return new Mapping($(element).closest('.wrapper'), fields);
 	}
 	var deleteHandler = function() {
-		var mapping = getWrapper(this, fields);
+		var mapping = getWrapper(this);
 		ajaxDelete(mainUrl + mapping.id(), 
 			function() {
 				mapping.remove();
 			});
 	}
 	var goToEditMode = function() {
-		getWrapper(this, fields).editMode();
+		getWrapper(this).editMode();
 	}
 	var cancelEditMode = function() {
-		getWrapper(this, fields).noeditMode();
+		getWrapper(this).noeditMode();
 	}
 	var saveHandler = function() {
-		var mapping = getWrapper(this, fields);
+		var mapping = getWrapper(this);
 		ajaxPut(mainUrl + mapping.id(), 
 			mapping.data(), 
 			function(received) {
@@ -76,22 +88,14 @@ function List(mainUrl, $list, fields, template, onAdd) {
 			});
 		mapping.noeditMode();
 	}
-	ajaxGet(mainUrl, function(data) {
-		$.each(data, function(i, object){
-			self.add(object);
-		});
-	});
-	this.$list.delegate('.remove-button', 'click', deleteHandler);
-	this.$list.delegate('.edit-button', 'click', goToEditMode);
-	this.$list.delegate('.cancel-edit-button', 'click', cancelEditMode);
-	this.$list.delegate('.save-edit-button', 'click', saveHandler);
-
-}
-
-List.prototype.add = function(object) {
 	var rendered = Mustache.render(this.template, object)
 	this.$list.append(rendered);
-	this.onAdd(this.$list.last());
+	var $appended = this.$list.children().last();
+	$appended.find('.remove-button').click(deleteHandler);
+	$appended.find('.edit-button').click(goToEditMode);
+	$appended.find('.cancel-edit-button').click(cancelEditMode);
+	$appended.find('.save-edit-button').click(saveHandler);
+	this.onAdd($appended);
 };
 
 function Form(mainUrl, $form, fields, receive) {	

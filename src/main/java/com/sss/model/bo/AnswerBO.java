@@ -7,6 +7,9 @@ public class AnswerBO {
 	public AnswerBO(Answer answer) {
 		this.answer = answer;
 	}
+	public Long getId() {
+		return this.answer.getId();
+	}
 	public String getContent() {
 		return this.answer.getContent();
 	}

@@ -33,4 +33,8 @@ public class Comment {
 		this.commentable = commentable;
 		return this;
 	}
+
+	public Long getId() {
+		return this.id;
+	}
 }

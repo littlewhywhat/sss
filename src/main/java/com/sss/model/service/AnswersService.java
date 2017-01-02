@@ -3,11 +3,15 @@ package com.sss.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sss.data.IAnswersRepository;
+import com.sss.data.ICommentableRepository;
 import com.sss.data.entity.Answer;
+import com.sss.data.entity.Commentable;
 import com.sss.data.entity.Question;
 import com.sss.model.IAnswersService;
 import com.sss.model.bo.AnswerBO;
@@ -19,6 +23,9 @@ public class AnswersService implements IAnswersService {
 	@Autowired
 	private IAnswersRepository m_Repository;
 
+	@Autowired
+	private ICommentableRepository m_CommentableRepository;
+	
 	private Answer vo2entity(AnswerVO answerVO, Long questionId) {
 		return new Answer()
 				.setContent(answerVO.getContent())
@@ -34,18 +41,20 @@ public class AnswersService implements IAnswersService {
 	}
 
 	@Override
-	public void add(AnswerVO answerVO, Long questionId) {
-		m_Repository.save(vo2entity(answerVO, questionId));
+	public AnswerBO add(AnswerVO answerVO, Long questionId) {
+		return new AnswerBO(m_Repository.save(vo2entity(answerVO, questionId).setCommentable(new Commentable())));
 	}
 
 	@Override
-	public void update(AnswerVO answerVO, Long questionId, Long answerId) {
-		m_Repository.save(vo2entity(answerVO, questionId));
+	public AnswerBO update(AnswerVO answerVO, Long questionId, Long answerId) {
+		return new AnswerBO(m_Repository.save(vo2entity(answerVO, questionId).setId(answerId)));
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long questionId, Long answerId) {
 		m_Repository.delete(answerId);
+		m_CommentableRepository.delete(answerId);
 	}
 
 }

@@ -26,8 +26,8 @@ public class CommentsService implements ICommentsService {
 	}
 	
 	@Override
-	public void add(CommentVO commentVO, Long commentableId) {
-		m_Repository.save(vo2entity(commentVO, commentableId));
+	public CommentBO add(CommentVO commentVO, Long commentableId) {
+		return new CommentBO(m_Repository.save(vo2entity(commentVO, commentableId)));
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class CommentsService implements ICommentsService {
 	}
 
 	@Override
-	public void update(CommentVO commentVO, Long commentableId, Long commentId) {
-		m_Repository.save(vo2entity(commentVO, commentableId).setId(commentId));
+	public CommentBO update(CommentVO commentVO, Long commentableId, Long commentId) {
+		return new CommentBO(m_Repository.save(vo2entity(commentVO, commentableId).setId(commentId)));
 	}
 
 
