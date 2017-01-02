@@ -7,7 +7,7 @@
 </head>
 <body>
 	<script type="x-tmpl-mustache" id="questions-template">
-		<li data-id='{{id}}'>
+		<li class='wrapper' data-id='{{id}}'>
 			<p>
 				<strong>Title: </strong> 
 				<span class='noedit title'>{{title}}</span>
@@ -18,31 +18,34 @@
 				<span class='noedit content'>{{content}}</span>
 				<input class='edit content'></input>
 			</p>
-			<button class='remove'>Remove</button>
-			<button class='editButton noedit'>Edit</button>
-			<button class='saveEdit edit'>Save</button>
-			<button class='cancelEdit edit'>Cancel</button>
-			<a class='show noedit' href='questions/{{id}}'>Show</a>
+			<button class='remove-button'>Remove</button>
+			<button class='edit-button noedit'>Edit</button>
+			<a class='show-link noedit' href='questions/{{id}}'>Show</a>
+			<button class='save-edit-button edit'>Save</button>
+			<button class='cancel-edit-button edit'>Cancel</button>
 		</li>
 	</script>
 	<p>Welcome to Student Study Space!</p>
-	<ul id="questions">
-	</ul>
-	<div id="questions-form">
-		<h4>Add question</h4>
-		<p>
-			title: <input type="text" class="title"></input>
-		</p>
-		<p>
-			content: <input type="text" class="content"></input>
-		</p>
-		<button id="add">Add!</button>
+	<div id="questions">
+		<ul class="list">
+		</ul>
+		<div class="form">
+			<h4>Add question</h4>
+			<p>
+				title: <input type="text" class="title"></input>
+			</p>
+			<p>
+				content: <input type="text" class="content"></input>
+			</p>
+			<button class="add-button">Add!</button>
+		</div>
 	</div>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/javascript/mustache.js"></script>
 <script type="text/javascript" src="/javascript/ajax.js"></script>
-<script src="/javascript/main.js"></script>
+<script type="text/javascript" src="/javascript/helpers.js"></script>
+<script src="/javascript/questions/index.js"></script>
 </html>
 
