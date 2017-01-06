@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PagesController {
 	
-	@RequestMapping(value={ "/", "questions/"})
+	@RequestMapping(value={ "/"})
     public String index() {
-    	return "questions/index";
+    	return "index";
     }
 	
 	@RequestMapping("questions/{questionId}")
@@ -16,4 +16,8 @@ public class PagesController {
     	return "questions/show";
     }
     
+	@RequestMapping("tasks/create") 
+	public String createTask() {
+		return "tasks/create";
+	}
 }

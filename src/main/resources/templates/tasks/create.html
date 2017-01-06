@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>SSS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel='stylesheet' href='/css/style.css'/>
+</head>
+<body>
+	<script type="x-tmpl-mustache" id="questions-template">
+		<li class="question">
+			<span>new</span>
+			<button class="remove">X</button>
+		</li>
+	</script>
+	<h4>Task title</h4>
+	<button id="create-task">+</button>
+	<ul id="questions">
+	</ul>
+</body>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/javascript/mustache.js"></script>
+<script type="text/javascript" src="/javascript/ajax.js"></script>
+<script type="text/javascript" src="/javascript/helpers.js"></script>
+<script src="/javascript/tasks/create.js"></script>
+</html>
+
