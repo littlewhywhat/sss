@@ -7,15 +7,16 @@
 </head>
 <body>
 	<script type="x-tmpl-mustache" id="questions-template">
-		<li class="question">
-			<span>new</span>
+		<li class="question" data-id='{{id}}'>
+			<span>{{title}}</span>
 			<button class="remove">X</button>
 		</li>
 	</script>
-	<h4>Task title</h4>
-	<button id="create-task">+</button>
+	<label>Task title:</label>
+	<input id="task-title"></input>
 	<ul id="questions">
 	</ul>
+	<button id="create-task">Create task</button>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
