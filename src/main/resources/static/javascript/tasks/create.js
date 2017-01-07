@@ -2,14 +2,14 @@ $(function() {
 	var list = new ExtendableList($("#questions"), $("#questions-template"));
 	ajaxGet("/api/questions", function(questions) {
 		$.each(questions, function(i, question){
-			list.addQuestion(question);
+			list.extend(question);
 		});
 	});
 
 	$("#create-task").on("click", function() {
 		var data = {};
 		data["title"] = $("#task-title").val();
-		data["questionIds"] = list.getQuestionIds();
+		data["questionIds"] = list.getElementsIds();
 		console.log(data);
 		ajaxPost("/api/tasks", data, function() {
 			ajaxGet("/", function() {});
@@ -17,27 +17,34 @@ $(function() {
 	});
 });
 
-function ExtendableList($list, $eltemplate) {
+function ExtendableList($list, $template) {
 	this.$list = $list;
-	this.$eltemplate = $eltemplate;
+	this.$template = $template;
+	this.getLast = function () {
+		return this.$list.children().last();
+	}
 }
 
-ExtendableList.prototype.addQuestion = function(question) {
-	console.log('clicked');
-	if (this.$list.children().length == 0)
-		this.$list.html(Mustache.render(this.$eltemplate.html(), question));
+ExtendableList.prototype.isEmpty = function() {
+	return this.$list.children().length == 0;
+}
+
+ExtendableList.prototype.extend = function(element) {
+	$li = Mustache.render(this.$template.html(), element);
+	if (this.isEmpty())
+		this.$list.html($li);
 	else
-		this.$list.append(Mustache.render(this.$eltemplate.html(), question));
-	this.$list.children().last().find(".remove").on("click", function() {
+		this.$list.append($li);
+	this.getLast().find(".remove").on("click", function() {
 		console.log("fired");
 		this.closest("li").remove();
 	});
 }
 
-ExtendableList.prototype.getQuestionIds = function() {
-	var questionIds = [];
-	$.each(this.$list.find(".question"), function(i, li) {
-		questionIds[i] = $(li).attr('data-id');
+ExtendableList.prototype.getElementsIds = function() {
+	var elementsIds = [];
+	$.each(this.$list.find(".li"), function(i, li) {
+		elementsIds[i] = $(li).attr('data-id');
 	});	
-	return questionIds;
+	return elementsIds;
 }
