@@ -1,7 +1,25 @@
 function ListAndForm($div, mainUrl, fields, template, onAdd) {
-	var questions = new List(mainUrl, $div.find('.list'), fields, template, onAdd);
+	var list = new List($div.find('.list'), fields, template, onAdd,
+		function(mapping) {
+			ajaxPut(mainUrl + mapping.id(), 
+			mapping.data(), 
+			function(received) {
+				mapping.saveEdit(received);
+			});
+		},
+		function(mapping) {
+			ajaxDelete(mainUrl + mapping.id(), 
+			function() {
+				mapping.remove();
+			});
+		});
+	ajaxGet(mainUrl, function(data) {
+		$.each(data, function(i, object){
+			list.add(object);
+		});
+	});
 	new Form(mainUrl, $div.find('.form'), fields, function(received) {
-		questions.add(received);
+		list.add(received);
 	});
 }
 
@@ -46,32 +64,28 @@ Mapping.prototype.remove = function() {
 	this.$element.remove();
 }
 
-function List(mainUrl, $list, fields, template, onAdd) {
+Mapping.prototype.element = function() {
+	return this.$element;
+}
+
+function List($list, fields, template, onAdd, onSave, onDelete) {
 	var self = this;
 	this.$list = $list;
 	this.template = template;
 	this.onAdd = onAdd;
+	this.onSave = onSave;
+	this.onDelete = onDelete;
 	this.fields = fields;
-	this.mainUrl = mainUrl;
-	ajaxGet(mainUrl, function(data) {
-		$.each(data, function(i, object){
-			self.add(object);
-		});
-	});
 }
 
 List.prototype.add = function(object) {
-	var fields = this.fields;
-	var mainUrl = this.mainUrl;
+	var self = this;
 	var getWrapper = function(element) {
-		return new Mapping($(element).closest('.wrapper'), fields);
+		return new Mapping($(element).closest('.wrapper'), self.fields);
 	}
 	var deleteHandler = function() {
 		var mapping = getWrapper(this);
-		ajaxDelete(mainUrl + mapping.id(), 
-			function() {
-				mapping.remove();
-			});
+		self.onDelete(mapping);
 	}
 	var goToEditMode = function() {
 		getWrapper(this).editMode();
@@ -81,11 +95,7 @@ List.prototype.add = function(object) {
 	}
 	var saveHandler = function() {
 		var mapping = getWrapper(this);
-		ajaxPut(mainUrl + mapping.id(), 
-			mapping.data(), 
-			function(received) {
-				mapping.saveEdit(received);
-			});
+		self.onSave(mapping);
 		mapping.noeditMode();
 	}
 	var rendered = Mustache.render(this.template, object)
