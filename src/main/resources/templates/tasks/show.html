@@ -3,38 +3,44 @@
 <head>
 <title>SSS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel='stylesheet' href='/css/style.css'/>
+<link rel='stylesheet' href='/css/show/style.css'/>
 </head>
 <body>
-	<script type="x-tmpl-mustache" id="questions-template">
-		<li class='wrapper' data-id='{{id}}'>
-			<p>
-				<strong>Title: </strong> 
-				<span class='noedit title'>{{title}}</span>
-				<input class='edit title'></input>
-			</p>
-			<button class='remove-button'>Remove</button>
-			<a class='show-link noedit' href='/questions/{{id}}'>Show</a>
+	<script type="x-tmpl-mustache" id="task-template">
+		<p data-id='{{id}}'>
+			<strong>Title: </strong>
+			<span class='noedit title'>{{title}}</span>
+			<input class='edit title'></input>
+			<button class='edit-button noedit'>Edit</button>
 			<button class='save-edit-button edit'>Save</button>
 			<button class='cancel-edit-button edit'>Cancel</button>
+		</p>
+	</script>
+	<script type="x-tmpl-mustache" id="questions-template">
+		<li class='question wrapper' data-id='{{id}}'>
+			<p>
+				<strong>Title: </strong> 
+				<span class='title noedit'>{{title}}</span>
+				<input class='title edit'></input>
+			</p>
+			<button class='remove-button edit'>Remove</button>
+			<a class='show-link noedit' href='/questions/{{id}}'>Show</a>
 		</li>
 	</script>
-	<div data-id='{{id}}'>
-		<h2> 
-			<span id='task-title'></span>
-		</h2>
-		<div class='questions'>
-			<ul class='list'>
+	<div>
+		<div id='main' class='editable'>
+			<button id='add-question' class='edit'>Add question</button>
+			<div id='task' class='editable'>
+			</div>
+			<ul id='questions' class='editable'>
+				
 			</ul>
 		</div>
-		<button class='remove-button'>Remove</button>
-		<button class='edit-button noedit'>Edit</button>
-		<button class='save-edit-button edit'>Save</button>
-		<button class='cancel-edit-button edit'>Cancel</button>
 	</div>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="/javascript/url.min.js"></script>
 <script src="/javascript/mustache.js"></script>
 <script type="text/javascript" src="/javascript/ajax.js"></script>

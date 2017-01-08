@@ -37,12 +37,13 @@ function ListAndForm($div, mainUrl, fields, template, onAdd) {
 	});
 }
 
-function Editable($element, fields, onStartEdit, onSaveEdit) {
+function Editable($element, fields, onStartEdit, onSaveEdit, onCancelEdit) {
 	var that = this;
 	this.$element = $element;
 	this.fields = fields;
 	this.onStartEdit = onStartEdit;
 	this.onSaveEdit = onSaveEdit;
+	this.onCancelEdit = onCancelEdit;
 	this.findInput = function(field) {
 		return that.$element.find('input.' + field).first();
 	}
@@ -81,7 +82,9 @@ Editable.prototype.data = function() {
 };
 
 Editable.prototype.noEditMode = function() {
-	this.$element.removeClass('edit');
+	var that = this;
+	that.$element.removeClass('edit');
+	that.onCancelEdit();
 }
 
 Editable.prototype.saveEdit = function() {

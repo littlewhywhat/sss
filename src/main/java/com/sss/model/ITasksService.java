@@ -15,4 +15,6 @@ public interface ITasksService {
 
 	public TaskBO update(TaskVO taskVO, Long taskId);
 
+	public TaskBO find(Long taskId);
+
 }

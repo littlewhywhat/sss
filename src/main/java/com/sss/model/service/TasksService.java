@@ -52,4 +52,9 @@ public class TasksService implements ITasksService {
 		return new TaskBO(m_Repository.save(vo2entity(taskVO).setId(taskId)));
 	}
 
+	@Override
+	public TaskBO find(Long taskId) {
+		return new TaskBO(m_Repository.findOne(taskId));
+	}
+
 }

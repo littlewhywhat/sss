@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Task {
@@ -13,7 +13,7 @@ public class Task {
 	@GeneratedValue
 	private Long id;
 	private String title;
-	@OneToMany
+	@ManyToMany
 	private List<Question> questions;
 	public Task setQuestions(List<Question> questions) {
 		this.questions = questions;

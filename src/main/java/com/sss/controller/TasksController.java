@@ -24,6 +24,11 @@ public class TasksController {
 		return tasks.all();
 	}
 	
+	@RequestMapping("api/tasks/{taskId}")
+	public TaskBO find(@PathVariable Long taskId) {
+		return tasks.find(taskId);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="api/tasks")
 	public TaskBO create(@RequestBody TaskVO taskVO) {
 		return tasks.create(taskVO);
