@@ -8,8 +8,28 @@ $(function() {
 
 	var tName = "tasks";
 	var tUrl = 'api/' + tName + '/';
-	var tFields = ['title'];
 	var tTemplate = $('#' + tName + '-template').html();
 
-	new List(tUrl, $('#' + tName).find(".list"), tFields, tTemplate, function($element) {});
+	var tasks = new List($('#' + tName).find(".list"), tTemplate, 
+		function($element) {},
+		function($wrapper) {
+			var identity = new Identity($wrapper);
+			ajaxDelete(tUrl + Identity.id(), 
+				function() {
+					$wrapper.remove();
+				});
+		});
+	ajaxGet(tUrl, function(data) {
+		$.each(data, function(i, object){
+			tasks.add(object);
+		});
+	});
+	$("#create-task").on("click", function() {
+		ajaxPost("/api/tasks/", {
+			title: "new task",
+			questionIds: []
+		}, function(element) {
+				tasks.add(element);
+			});
+		});
 });

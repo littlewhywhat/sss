@@ -16,8 +16,8 @@ public class PagesController {
     	return "questions/show";
     }
     
-	@RequestMapping("tasks/create") 
+	@RequestMapping("tasks/{taskId}") 
 	public String createTask() {
-		return "tasks/create";
+		return "tasks/show";
 	}
 }

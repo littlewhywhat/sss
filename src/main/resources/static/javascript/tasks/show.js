@@ -1,10 +1,19 @@
 $(function() {
-	var list = new ExtendableList($("#questions"), $("#questions-template"));
-	ajaxGet("/api/questions", function(questions) {
-		$.each(questions, function(i, question){
-			list.extend(question);
+	var taskId = url(-1);
+
+	var list = new List($("#questions"), $("#questions-template").html(),
+		function($element) {
+		},
+		function($element) {
 		});
-	});
+	ajaxGet("/api/tasks/" + taskId + "/questions", 
+		function(questions) {
+			$.each(questions, function(i, question){
+				question["value"] = question.title;
+				question["label"] = question.title;
+				list.add(question);
+			});
+		});
 
 	$("#create-task").on("click", function() {
 		var data = {};

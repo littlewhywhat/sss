@@ -25,7 +25,7 @@ $(function() {
 	new ListAndForm($('#' + answersName), answersUrl, answersFields, answersTemplate, 
 		function($element) {
 			var commentsUrl = "/api/commentables/" 
-						  + new Mapping($element, answersFields).id() 
+						  + new Identity($element).id() 
 						  + "/" + commentsName + "/";
 
 			new ListAndForm($element.find('.comments'), commentsUrl, commentsFields, commentsTemplate,

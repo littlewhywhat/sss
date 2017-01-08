@@ -1,121 +1,160 @@
 function ListAndForm($div, mainUrl, fields, template, onAdd) {
-	var list = new List($div.find('.list'), fields, template, onAdd,
-		function(mapping) {
-			ajaxPut(mainUrl + mapping.id(), 
-			mapping.data(), 
-			function(received) {
-				mapping.saveEdit(received);
-			});
+
+	var list = new List($div.find('.list'), template, 
+		function($element) {
+			var identity = new Identity($element);
+			var mapping = new Mapping($element, fields, 'span');
+			new Editable($element, fields, 
+					function(editable) {
+						editable.set(mapping.data())
+					},
+					function(data) {
+						ajaxPut(mainUrl + identity.id(), 
+								data, 
+								function(received) {
+									mapping.set(received);
+								});
+					});
+			onAdd($element);
 		},
-		function(mapping) {
-			ajaxDelete(mainUrl + mapping.id(), 
+		function($wrapper) {
+			var identity = new Identity($wrapper);
+			ajaxDelete(mainUrl + identity.id(), 
 			function() {
-				mapping.remove();
+				$wrapper.remove();
 			});
 		});
+
 	ajaxGet(mainUrl, function(data) {
 		$.each(data, function(i, object){
 			list.add(object);
 		});
 	});
-	new Form(mainUrl, $div.find('.form'), fields, function(received) {
-		list.add(received);
+	new Form($div.find('.form'), fields, function(data) {
+		ajaxPost(mainUrl, data, function(received) {
+			list.add(received);
+		});
 	});
 }
 
-function Mapping($element, fields) {
+function Editable($element, fields, onStartEdit, onSaveEdit) {
+	var that = this;
 	this.$element = $element;
 	this.fields = fields;
-}
-
-Mapping.prototype.editMode = function() {
-	var $element = this.$element;
-	$.each(this.fields, function(i, field) {
-		$element.find('input.' + field).val($element.find('span.' + field).html());
+	this.onStartEdit = onStartEdit;
+	this.onSaveEdit = onSaveEdit;
+	this.findInput = function(field) {
+		return that.$element.find('input.' + field).first();
+	}
+	this.setInput = function(field, value) {
+		that.findInput(field).val(value);
+	}
+	$element.find('.edit-button').click(function() {
+		that.editMode();
 	});
-    $element.addClass('edit');
-}
-
-Mapping.prototype.noeditMode = function() {
-	this.$element.removeClass('edit');
-}
-
-Mapping.prototype.saveEdit = function(received) {
-	var $element = this.$element;
-	$.each(this.fields, function(i, field) {
-		$element.find('span.' + field).html(received[field]);
+	$element.find('.cancel-edit-button').click(function() {
+		that.noEditMode();
+	});
+	$element.find('.save-edit-button').click(function() {
+		that.saveEdit();
 	});
 }
 
-Mapping.prototype.data = function() {
-	var $element = this.$element;
+Editable.prototype.editMode = function() {
+	var that = this;
+	that.onStartEdit(that);
+	that.$element.addClass('edit');
+}
+
+Editable.prototype.set = function(data) {
+	for (var field in data)
+		this.setInput(field, data[field]);
+}
+
+Editable.prototype.data = function() {
+	var that = this;
 	var data = {};
 	$.each(this.fields, function(i, field) {
-		data[field] = $element.find('input.' + field).val();
+		data[field] = that.findInput(field).val();
 	});
 	return data;
 };
 
-Mapping.prototype.id = function() {
+Editable.prototype.noEditMode = function() {
+	this.$element.removeClass('edit');
+}
+
+Editable.prototype.saveEdit = function() {
+	var that = this;
+	that.onSaveEdit(that.data())
+	that.noEditMode();
+}
+
+function Mapping($element, fields, tag) {
+	this.$element = $element;
+	this.fields = fields;
+	this.findSpan = function(field) {
+		return this.$element.find(tag + '.' + field).first();
+	}
+}
+
+Mapping.prototype.data = function() {
+	var self = this;
+	var data = {};
+	$.each(this.fields, function(i, field) {
+		data[field] = self.val(field);
+	});
+	return data;
+};
+
+Mapping.prototype.val = function(field) {
+	return this.findSpan(field).html();
+}
+
+Mapping.prototype.set = function(object) {
+	var self = this;
+	$.each(this.fields, function(i, field) {
+		self.findSpan(field).html(object[field]);
+	});
+}
+
+function Identity($element) {
+	this.$element = $element;
+}
+
+Identity.prototype.id = function() {
 	return this.$element.attr('data-id');
 }
 
-Mapping.prototype.remove = function() {
-	this.$element.remove();
-}
-
-Mapping.prototype.element = function() {
-	return this.$element;
-}
-
-function List($list, fields, template, onAdd, onSave, onDelete) {
+function List($list, template, onAdd, onDelete) {
 	var self = this;
 	this.$list = $list;
 	this.template = template;
 	this.onAdd = onAdd;
-	this.onSave = onSave;
 	this.onDelete = onDelete;
-	this.fields = fields;
 }
 
 List.prototype.add = function(object) {
 	var self = this;
 	var getWrapper = function(element) {
-		return new Mapping($(element).closest('.wrapper'), self.fields);
+		return $(element).closest('.wrapper');
 	}
 	var deleteHandler = function() {
-		var mapping = getWrapper(this);
-		self.onDelete(mapping);
+		var $wrapper = getWrapper(this);
+		self.onDelete(getWrapper(this));
+		$wrapper.closest('li').remove();
 	}
-	var goToEditMode = function() {
-		getWrapper(this).editMode();
-	}
-	var cancelEditMode = function() {
-		getWrapper(this).noeditMode();
-	}
-	var saveHandler = function() {
-		var mapping = getWrapper(this);
-		self.onSave(mapping);
-		mapping.noeditMode();
-	}
-	var rendered = Mustache.render(this.template, object)
+	var rendered = Mustache.render(self.template, object)
 	this.$list.append(rendered);
 	var $appended = this.$list.children().last();
 	$appended.find('.remove-button').click(deleteHandler);
-	$appended.find('.edit-button').click(goToEditMode);
-	$appended.find('.cancel-edit-button').click(cancelEditMode);
-	$appended.find('.save-edit-button').click(saveHandler);
 	this.onAdd($appended);
 };
 
-function Form(mainUrl, $form, fields, receive) {	
-	var $addButton = $form.find('.add-button');
-	var mapping = new Mapping($form, fields);
-	$addButton.on('click', function() {
-		ajaxPost(mainUrl, 
-			mapping.data(), 
-			function(received) {
-				receive(received);
-			});	
+function Form($form, fields, onSubmit) {	
+	var mapping = new Editable($form, fields, function() {}, function() {});
+	$form.find('.add-button').on('click', function() {
+		console.log(mapping.data());
+		onSubmit(mapping.data());
 	});
 }

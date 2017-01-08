@@ -13,53 +13,32 @@
 				<span class='noedit title'>{{title}}</span>
 				<input class='edit title'></input>
 			</p>
-			<p>
-				<strong>Content: </strong> 
-				<span class='noedit content'>{{content}}</span>
-				<input class='edit content'></input>
-			</p>
 			<button class='remove-button'>Remove</button>
-			<button class='edit-button noedit'>Edit</button>
 			<a class='show-link noedit' href='/questions/{{id}}'>Show</a>
 			<button class='save-edit-button edit'>Save</button>
 			<button class='cancel-edit-button edit'>Cancel</button>
 		</li>
 	</script>
-	<script type="x-tmpl-mustache" id="tasks-template">
-		<li class='wrapper' data-id='{{id}}'>
-			<p>
-				<span class='title'>{{title}}</span>
-			</p>
-			<button class='remove-button'>Remove</button>
-			<a class='show-link noedit' href='tasks/{{id}}'>Show</a>
-		</li>
-	</script>	
-	<p>Welcome to Student Study Space!</p>
-	<div id="questions">
-		<ul class="list">
-		</ul>
-		<div class="form">
-			<h4>Add question</h4>
-			<p>
-				title: <input type="text" class="title"></input>
-			</p>
-			<p>
-				content: <input type="text" class="content"></input>
-			</p>
-			<button class="add-button">Add!</button>
+	<div data-id='{{id}}'>
+		<h2> 
+			<span id='task-title'></span>
+		</h2>
+		<div class='questions'>
+			<ul class='list'>
+			</ul>
 		</div>
-	</div>
-	<div id="tasks">
-		<ul class="list">
-		</ul>
-		<button id='create-task'>Create task</button>
+		<button class='remove-button'>Remove</button>
+		<button class='edit-button noedit'>Edit</button>
+		<button class='save-edit-button edit'>Save</button>
+		<button class='cancel-edit-button edit'>Cancel</button>
 	</div>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script	src="/javascript/url.min.js"></script>
 <script src="/javascript/mustache.js"></script>
 <script type="text/javascript" src="/javascript/ajax.js"></script>
 <script type="text/javascript" src="/javascript/helpers.js"></script>
-<script src="/javascript/questions/index.js"></script>
+<script src="/javascript/tasks/show.js"></script>
 </html>
 
