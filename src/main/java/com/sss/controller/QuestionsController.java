@@ -5,6 +5,8 @@ import com.sss.model.bo.QuestionBO;
 import com.sss.model.vo.QuestionVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +18,8 @@ import java.util.List;
 @RestController
 class QuestionsController {
 
-    @Autowired
-    IQuestionsService questions;
+	@Autowired
+    private IQuestionsService questions;
 
     @RequestMapping("api/questions")
     public List<QuestionBO> index() {
