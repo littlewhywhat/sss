@@ -14,7 +14,7 @@ $(function() {
 		function($element) {},
 		function($wrapper) {
 			var identity = new Identity($wrapper);
-			ajaxDelete(tUrl + Identity.id(), 
+			ajaxDelete(tUrl + identity.id(), 
 				function() {
 					$wrapper.remove();
 				});

@@ -71,8 +71,13 @@ $(function() {
 			},
 			function() {
 				$.each($("#questions").find(".question"), function(i, question) {
-					$(question).find("input").autocomplete('instance').destroy();
+					var $question = $(question);
+					if (new Identity($question).id())
+						$question.find("input").autocomplete('instance').destroy();
+					else
+						$question.remove();
 				});
+				source = [];
 			});
 		$('#add-question').on('click', function() {
 			var question = {
