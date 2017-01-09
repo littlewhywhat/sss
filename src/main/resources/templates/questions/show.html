@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<link rel='stylesheet' href='/css/style.css'/>
+	<link rel='stylesheet' href='/css/questions/show.css'/>
 
 </head>
 <body>
@@ -26,16 +26,16 @@
 		</div>
 	</script>
 	<script type="x-tmpl-mustache" id="answers-template">
-		<li class='wrapper' data-id='{{id}}'>
+		<li class='answer wrapper' data-id='{{id}}'>
 			<p>
 				<strong>Answer: </strong> 
-				<span class='noedit content'>{{content}}</span>
-				<input class='edit content'></input>
+				<span class='answer noedit content'>{{content}}</span>
+				<input class='answer edit content'></input>
 			</p>
-			<button class='remove-button'>Remove</button>
-			<button class='edit-button noedit'>Edit</button>
-			<button class='save-edit-button edit'>Save</button>
-			<button class='cancel-edit-button edit'>Cancel</button>
+			<button class='answer remove-button'>Remove</button>
+			<button class='answer edit-button noedit'>Edit</button>
+			<button class='answer save-edit-button edit'>Save</button>
+			<button class='answer cancel-edit-button edit'>Cancel</button>
 			<div class='comments'>
 				<ul class='list'>
 				</ul>
@@ -49,15 +49,15 @@
 		</li>
 	</script>
 	<script type="x-tmpl-mustache" id="comments-template">
-		<li class='wrapper' data-id='{{id}}'>
+		<li class='comment wrapper' data-id='{{id}}'>
 			<p>
-				<span class='noedit content'>{{content}}</span>
-				<input class='edit content'></input>
+				<span class='comment noedit content'>{{content}}</span>
+				<input class='comment edit content'></input>
 			</p>
-			<button class='remove-button'>Remove</button>
-			<button class='edit-button noedit'>Edit</button>
-			<button class='save-edit-button edit'>Save</button>
-			<button class='cancel-edit-button edit'>Cancel</button>
+			<button class='comment remove-button'>Remove</button>
+			<button class='comment edit-button noedit'>Edit</button>
+			<button class='comment save-edit-button edit'>Save</button>
+			<button class='comment cancel-edit-button edit'>Cancel</button>
 		</li>
 	</script>	
 	<script type="x-tmpl-mustache" id="tasks-template">

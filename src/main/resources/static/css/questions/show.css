@@ -1,0 +1,48 @@
+.comment>.edit {
+	display: none
+}
+
+.comment>p>.edit {
+	display: none
+}
+
+.comment.edit>p>.edit {
+	display: initial;
+}
+
+.comment.edit>p>.noedit {
+	display: none;
+}
+
+
+.comment.edit>.edit {
+	display: initial;
+}
+
+.comment.edit>.noedit {
+	display: none;
+}
+
+.answer>p>.edit {
+	display: none
+}
+
+.answer.edit>p>.edit {
+	display: initial;
+}
+
+.answer.edit>p>.noedit {
+	display: none;
+}
+
+.answer>.edit {
+	display: none
+}
+
+.answer.edit>.edit {
+	display: initial;
+}
+
+.answer.edit>.noedit {
+	display: none;
+}

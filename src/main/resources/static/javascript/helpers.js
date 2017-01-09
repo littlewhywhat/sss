@@ -84,7 +84,8 @@ Editable.prototype.data = function() {
 Editable.prototype.noEditMode = function() {
 	var that = this;
 	that.$element.removeClass('edit');
-	that.onCancelEdit();
+	if (that.onCancelEdit)
+		that.onCancelEdit();
 }
 
 Editable.prototype.saveEdit = function() {
