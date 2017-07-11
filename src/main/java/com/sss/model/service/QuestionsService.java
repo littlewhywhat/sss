@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-class QuestionsService implements IQuestionsService  {
+public class QuestionsService implements IQuestionsService  {
 
 	/**
 	 * Member variable that implements IQuestionsRepository.

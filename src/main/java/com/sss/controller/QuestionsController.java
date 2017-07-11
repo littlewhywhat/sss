@@ -22,7 +22,7 @@ import java.util.List;
  *
  */
 @RestController
-class QuestionsController {
+public class QuestionsController {
 
 	/**
 	 * Member variable that implements IQuestionsService.
